@@ -115,12 +115,6 @@ module FakeS3
     def self.append_objects_to_list_bucket_result(lbr,objects)
       return if objects.nil? or objects.size == 0
 
-      if objects.index(nil)
-        require 'ruby-debug'
-        Debugger.start
-        debugger
-      end
-
       objects.each do |s3_object|
         lbr.Contents { |contents|
           contents.Key(s3_object.name)
