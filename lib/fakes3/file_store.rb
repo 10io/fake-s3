@@ -27,6 +27,10 @@ module FakeS3
       end
     end
 
+    def quiet!
+      @quiet = true
+    end
+
     # Pass a rate limit in bytes per second
     def rate_limit=(rate_limit)
       if rate_limit.is_a?(String)
@@ -94,8 +98,10 @@ module FakeS3
         real_obj.custom_metadata = metadata.fetch(:custom_metadata) { {} }
         return real_obj
       rescue
-        puts $!
-        $!.backtrace.each { |line| puts line }
+        unless @quiet
+          puts $!
+          $!.backtrace.each { |line| puts line }
+        end
         return nil
       end
     end

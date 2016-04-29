@@ -527,6 +527,7 @@ module FakeS3
       end
 
       if quiet
+        @store.quiet!
         webrick_config.merge!(
           :Logger => WEBrick::Log.new("/dev/null"),
           :AccessLog => []
